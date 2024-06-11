@@ -26,10 +26,10 @@ export class CdkAppStack extends cdk.Stack {
     // Create an S3 bucket to store content and set removal policy to eithrt 'Retain' or 'Destroy'
      const siteBucket = new s3.Bucket(this, 'SiteBucket', {
        bucketName: 'rsschool-cdk-deployment-bucket',
-       publicReadAccess: true,
+       publicReadAccess: false,
        removalPolicy: RemovalPolicy.DESTROY,
        autoDeleteObjects: true,
-       blockPublicAccess: BlockPublicAccess.BLOCK_ACLS,
+       blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
        accessControl: BucketAccessControl.BUCKET_OWNER_FULL_CONTROL,
        websiteIndexDocument: 'index.html',
       //  websiteErrorDocument: 'error/index.html',
