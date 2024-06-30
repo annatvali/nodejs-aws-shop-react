@@ -24,56 +24,56 @@ export default function Header() {
   };
 
   return (
-    <AppBar position='relative' sx={{ backgroundColor: '#40e0d0' }}>
+    <AppBar position="relative" sx={{ backgroundColor: "#40e0d0" }}>
       <Toolbar>
-        <Typography variant='h6' sx={{ flexGrow: 1 }}>
+        <Typography variant="h6" sx={{ flexGrow: 1 }}>
           <Link
             component={RouterLink}
-            sx={{ color: 'inherit' }}
-            underline='none'
-            to='/'
+            sx={{ color: "inherit" }}
+            underline="none"
+            to="/"
           >
-            Ana's Store
+            Ana&apos;s Store
           </Link>
         </Typography>
 
         {auth && (
           <div>
             <IconButton
-              aria-label='account of current user'
-              aria-controls='menu-appbar'
-              aria-haspopup='true'
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
               onClick={handleMenu}
-              color='inherit'
-              size='large'
+              color="inherit"
+              size="large"
             >
               <AccountCircle />
             </IconButton>
             <Menu
-              id='menu-appbar'
+              id="menu-appbar"
               anchorEl={anchorEl}
               anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+                vertical: "top",
+                horizontal: "right",
               }}
               keepMounted
               transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+                vertical: "top",
+                horizontal: "right",
               }}
               open={open}
               onClose={handleClose}
             >
               <MenuItem
                 component={RouterLink}
-                to='/admin/orders'
+                to="/admin/orders"
                 onClick={handleClose}
               >
                 Manage orders
               </MenuItem>
               <MenuItem
                 component={RouterLink}
-                to='/admin/products'
+                to="/admin/products"
                 onClick={handleClose}
               >
                 Manage products
