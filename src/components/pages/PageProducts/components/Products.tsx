@@ -7,9 +7,24 @@ import Typography from "@mui/material/Typography";
 import { formatAsPrice } from "~/utils/utils";
 import AddProductToCart from "~/components/AddProductToCart/AddProductToCart";
 import { useAvailableProducts } from "~/queries/products";
+import { getRandomImageUrl } from "~/utils/unsplash";
+import { useState, useEffect } from "react";
 
 export default function Products() {
   const { data = [], isLoading } = useAvailableProducts();
+  const [images, setImages] = useState<string[]>([]);
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      const imagePromises = data.map(() => getRandomImageUrl());
+      const imageUrls = await Promise.all(imagePromises);
+      setImages(imageUrls);
+    };
+
+    if (data.length > 0) {
+      fetchImages();
+    }
+  }, [data]);
 
   if (isLoading) {
     return <Typography>Loading...</Typography>;
@@ -17,7 +32,6 @@ export default function Products() {
 
   return (
     <Grid container spacing={4}>
-      {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
       {data.map(({ count, ...product }, index) => (
         <Grid item key={product.id} xs={12} sm={6} md={4}>
           <Card
@@ -25,7 +39,7 @@ export default function Products() {
           >
             <CardMedia
               sx={{ pt: "56.25%" }}
-              image={`https://source.unsplash.com/random?sig=${index}`}
+              image={images[index] || "https://via.placeholder.com/300"}
               title="Image title"
             />
             <CardContent sx={{ flexGrow: 1 }}>
@@ -33,6 +47,7 @@ export default function Products() {
                 {product.title}
               </Typography>
               <Typography>{formatAsPrice(product.price)}</Typography>
+              <Typography>Available: {count}</Typography>
             </CardContent>
             <CardActions>
               <AddProductToCart product={product} />
